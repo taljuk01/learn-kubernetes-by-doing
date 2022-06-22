@@ -53,7 +53,7 @@ All the charts of this tutorial (except the chart from section 3.1) were created
 # Icons reference
 **[Return to topics list](#table-of-contents)**
 
-TThese [icons](https://github.com/kubernetes/community/tree/master/icons) are a way to standardize Kubernetes architecture diagrams for presentation. Having uniform architecture diagrams improve understandability.
+These [icons](https://github.com/kubernetes/community/tree/master/icons) are a way to standardize Kubernetes architecture diagrams for presentation. Having uniform architecture diagrams improve understandability.
 
 You'll understand the meaning of these icons as you progress through this guide.
 
