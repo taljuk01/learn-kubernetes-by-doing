@@ -228,10 +228,6 @@ You'll learn more about this in the section :
 
 **[Check icons reference](#icons-reference)**
 
-
-- If you want to expose the service externally, then you can use other types of services such as ```NodePort``` or ```LoadBalancer```. 
-- However, the most common way to expose a service outside of your cluster is by using another called ```Ingress```. Ingress is covered in upcoming sections.
-
 **ClusterIP** 
 
 - A ClusterIP service is the default Kubernetes service. 
