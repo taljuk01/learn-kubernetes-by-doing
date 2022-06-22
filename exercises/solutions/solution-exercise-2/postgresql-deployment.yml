@@ -1,0 +1,73 @@
+# apiVersion is the version of the k8s object.
+# Depend on the project (v1, apps,v1, etc). 
+# run `kubectl api-versions` to find out the available list of APIs supported by the cluster
+apiVersion: apps/v1 
+
+# kind is the type of Kubernetes object to be created (Pod, Deployment, ReplicaSet, etc)
+kind: Deployment 
+
+# This is metadata about the object, such as its name, type, api version, annotations, and labels
+metadata: 
+  name: postgresql-deployment
+  # This label belongs to the Deployment. This label is used by the service selector to stablish connections.
+  labels:
+    app: postgresql
+
+# Here start the specifications of the Deployment object.
+spec:
+  replicas: 1 # replicas to create of the postgresql Deployment
+  selector:
+    matchLabels:
+      app: postgresql
+  # Here below starts the definition of the blueprint to create Pods
+  template:
+    metadata:
+      labels:
+        app: postgresql
+    # specifications of the postgresql pod
+    spec:
+      containers:
+      - name: postgresql
+        image: postgres:latest
+        ports:
+        - containerPort: 5432 # default postgres port
+        env:
+
+        - name: POSTGRES_USER
+          # reference value from secret
+          valueFrom:
+            secretKeyRef:
+              name: postgresql-secret
+              key: postgresql-username
+
+        - name: POSTGRES_PASSWORD
+          # reference value from secret
+          valueFrom:
+            secretKeyRef:
+              name: postgresql-secret
+              key: postgresql-username
+
+        - name: POSTGRES_DB
+          # reference value from configMap
+          valueFrom: 
+            configMapKeyRef:
+              name: postgresql-configmap
+              key: postgres-db
+        
+
+
+# With these 3 dashes you can create another document
+# So, here below we're going to create the service
+# We put deployment and service in 1 file because they belong together
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-service
+spec:
+  selector:
+    app: postgresql # selector to connect to Pod through label
+  ports:
+    - protocol: TCP
+      port: 5432 # service port
+      targetPort: 5432 # containerPort of Deployment
