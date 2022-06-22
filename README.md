@@ -6,13 +6,14 @@
 
 Learning by doing is the simple idea that we are capable of learning more about something when we perform the action.
 
-So this guide aims to helps you start in the kubernetes world by doing hands-on exercise.
+So this guide aims to help you start in the Kubernetes world by doing hands-on exercises.
 
-Obviously, there is a minimal needed theory that you have to learn before start the exercises.
+There is a minimal needed theory that you have to learn before starting the exercises.
 
-I'll provide to you this minimum needed theory, but also on each exercise i'll put helpers links in case you want to deepen your knowledge or better understand how things work.
+I'll provide you with this minimum needed theory, but also on each exercise I'll put helpers links in case you want to deepen your knowledge or better understand how things work.
 
-All the charts of this tutorial (except chart from section 3.1) were created using [draw.io](https://app.diagrams.net/)
+All the charts of this tutorial (except the chart from section 3.1) were created using draw.io
+
 
 ## [Table of contents](#table-of-contents)
 
@@ -52,7 +53,7 @@ All the charts of this tutorial (except chart from section 3.1) were created usi
 # Icons reference
 **[Return to topics list](#table-of-contents)**
 
-These [icons](https://github.com/kubernetes/community/tree/master/icons) are a way to standardize Kubernetes architecture diagrams for presentation. Having uniform architecture diagrams improve understandibility.
+TThese [icons](https://github.com/kubernetes/community/tree/master/icons) are a way to standardize Kubernetes architecture diagrams for presentation. Having uniform architecture diagrams improve understandability.
 
 You'll understand the meaning of these icons as you progress through this guide.
 
@@ -67,7 +68,7 @@ You can come back here whenever you need an icon reference.
 ## 1 - What is k8s?
 **[Return to topics list](#table-of-contents)**
 
-- Kubernetes (aka k8s) is an open source container orchestration framework. 
+- Kubernetes (aka k8s) is an open-source container orchestration framework. 
 - It was originally developed by google
 - It helps you manage containerized applications (be docker containers or some other technology)
 - These applications can be made up of hundreds or maybe thousands of containers in different environments (physical machines, VMs, cloud, etc) 
@@ -117,7 +118,7 @@ Remember that containerized applications are applications that run in isolated r
 
 Containers encapsulate an application with all its dependencies, including system libraries, binaries, and configuration files (like Docker containers).
 
-These are the components of a kubernetes cluster:
+These are the components of a Kubernetes cluster:
 
 <p align="center">
   <img src="./assets/k8s-architecture.png" width="100%">
@@ -131,8 +132,8 @@ These are the components of a kubernetes cluster:
 - A node may be a virtual or physical machine, depending on the cluster.
 - Every cluster has at least one worker node.
 - Kubernetes runs your workload into the Worker Nodes. 
-- This workload are containerized applications.
-- On each node you'll find a set of pods (where containerized applications run) as well as 3 important daemons processes: kubelet, kube-proxy and the container runtime.
+- These workloads are containerized applications.
+- On each node, you'll find a set of pods (where containerized applications run) as well as 3 important daemons processes: kubelet, kube-proxy, and the container runtime.
 - Let's see what these components are.
 
 <p align="center">
@@ -147,8 +148,8 @@ These are the components of a kubernetes cluster:
 - A Pod contains one or more containers (not necessarily Docker containers), with shared storage and network resources.
 - A Pod is usually meant to run one application container inside of it (but you can run multiple containers inside one pod). 
 - For example, in a worker node you could have one pod that runs a database app, and another pod that runs some python app.
-- Pods are ephemeral which means that they are not designed to run forever,so they can die very easily.
-- I'ts recommended to have **no more than 110 pods per node** (checkout the [considerations for large clusters](https://kubernetes.io/docs/setup/best-practices/cluster-large/)).
+- Pods are ephemeral which means that they are not designed to run forever, so they can die very easily.
+- It's recommended to have **no more than 110 pods per node** (check out the [considerations for large clusters](https://kubernetes.io/docs/setup/best-practices/cluster-large/)).
 
 ### 3.2.2 - Pods networking
 
@@ -156,11 +157,11 @@ These are the components of a kubernetes cluster:
 
 **[Check icons reference](#icons-reference)**
 
-- When pods are created, they are assigned with an unique IP address (**not the container** the pod gets the ip address).
+- When pods are created, they are assigned a unique IP address (**, not the container** the pod gets the IP address).
 - Containers inside a pod share the same network space, which means that, within the pod, containers can communicate with each other by using the localhost address.
-- Also, each container inside a pod gets their own port.
+- Also, each container inside a pod gets its own port.
 - You can use this IP (and the corresponding port) to access the pod from anywhere within the Kubernetes cluster.
-- So each pod can communicate with each other using that ip address, which is an internal ip address.
+- So each pod can communicate with each other using that IP address, which is an internal IP address.
 
 <p align="center">
   <img src="./assets/k8s-nodes-networking.png" width="100%">
@@ -172,7 +173,7 @@ These are the components of a kubernetes cluster:
 
 - The way k8s schedule and manage the pods is by using three processes that must be installed on every node.
 - One of those processes is kubelet.
-- The Kubelet is the Kubernetes agent whose responsibility is to interact with the container runtime to perform operations such as starting, stopping, maintaining containers and assigning resources from the node to the container like cpu, ram and storage resources.  
+- The Kubelet is the Kubernetes agent whose responsibility is to interact with the container runtime to perform operations such as starting, stopping, maintaining containers, and assigning resources from the node to the container like CPU, ram, and storage resources.  
 
 ### 3.2.4 - Container runtime
 
@@ -198,11 +199,11 @@ These are the components of a kubernetes cluster:
 
 Kubernetes Objects are persistent entities in the Kubernetes system. Kubernetes uses these entities to represent the state of your cluster. 
 
-There are many kind of objects: **pods, Deployments, services, ReplicaSets, etc**.
+There are many kinds of objects: **pods, Deployments, services, ReplicaSets, etc**.
 
-In k8s objects can be created from a YAML file using the command line, or even you can avoid this YAML file and use the command line passing some flags with values.
+In k8s objects can be created from a YAML file using the command line, or even you can avoid this YAML file and use the command line by passing some flags with values.
 
-You'll learn more about this in the section : 
+You'll learn more about this in the section :  
 
 **Creating objects: manifest files vs imperative declaration**
 
@@ -212,14 +213,14 @@ You'll learn more about this in the section :
 
 **[Check icons reference](#icons-reference)**
 
-- Pods are constantly created and destroyed. This could happen for many reasons. For example when a pods crashes, or when bugs are fixed or new features are added to an application, etc. 
-- In any case, the pod will die and a new one will get created in its place. When this happens **it will get assigned a new ip address**. 
-- Obviously this is inconvenient because if you are communicating with that pod, you have to adjust the ip address every time the pod dies or restarts.
-- **You need a way to reach the pods regardless of their ip address**. To solve this, Kubernetes introduces the concept of ```service```.
-- A service is basically an abstraction layer, that **acts as a static ip address** that defines the access to a set of pods. 
+- Pods are constantly created and destroyed. This could happen for many reasons. For example when a pod crashes, when bugs are fixed or new features are added to an application, etc. 
+- In any case, the pod will die and a new one will get created in its place. When this happens **it will get assigned a new IP address**. 
+- Obviously, this is inconvenient because if you are communicating with that pod, you have to adjust the IP address every time the pod dies or restarts.
+- **You need a way to reach the pods regardless of their IP address**. To solve this, Kubernetes introduces the concept of ```service```.
+- A service is an abstraction layer, that **acts as a static IP address** that defines access to a set of pods. 
 - By using a service, you don’t access pods directly through their private IP addresses. 
-- Instead, **a service select all the Pods matching certain criteria** (for example, a label) and the **kube-proxy** forwards the requests to those pods.
-- The good thing here is that **the life cycles of service and the pod are not connected** so even if the pod dies, the service and its ip address will stay up so you don't have to change that endpoint anymore.
+- Instead, **a service select all the Pods matching certain criteria** (for example, a label), and the **Kube-proxy** forwards the requests to those pods.
+- The good thing here is that **the life cycles of the service and the pod are not connected** so even if the pod dies, the service and its IP address will stay up so you don't have to change that endpoint anymore.
 
 
 ### 3.3.2 - Types of Services
@@ -229,15 +230,15 @@ You'll learn more about this in the section :
 
 
 - If you want to expose the service externally, then you can use other types of services such as ```NodePort``` or ```LoadBalancer```. 
-- However, the most common way to expose a service outside of your cluster is by using another  called ```Ingress```. Ingress is covered in upcoming sections.
+- However, the most common way to expose a service outside of your cluster is by using another called ```Ingress```. Ingress is covered in upcoming sections.
 
 **ClusterIP** 
 
 - A ClusterIP service is the default Kubernetes service. 
 - This service has a cluster-internal IP address, **which is only reachable from within the cluster**. 
 - External traffic cannot hit a service of type ClusterIP directly
-- To allow external traffic, you need to configure another kubernetes resource called **ingress** (you'll learn more about ingress in the next section).}
-- Also you can interact with this type of service by using the command line with kube-proxy (this require to be authenticated into the cluster infrastructure).
+- To allow external traffic, you need to configure another Kubernetes resource called **ingress** (you'll learn more about ingress in the next section).}
+- Also you can interact with this type of service by using the command line with kube-proxy (this requires being authenticated into the cluster infrastructure).
 - This type of service is useful for testing purposes (using the command line), or for private applications we don't want to expose to the internet.
 
 <p align="center">
@@ -251,7 +252,7 @@ You'll learn more about this in the section :
 - It allocates a port from a range 30000–32767.
 - NodePort configuration will automatically create the ClusterIP to route the traffic internally. 
 - Users can access the service externally by using the IP address of the node and the exposed NodePort. 
-- If you are running a service that doesn’t have to be always available, or you are very cost sensitive, this method will work for you. A good example of such an application is a demo app or something temporary.
+- If you are running a service that doesn’t have to be always available, or you are very cost-sensitive, this method will work for you. A good example of such an application is a demo app or something temporary.
 
 <p align="center">
   <img src="./assets/k8s-NodePort.png" width="70%">
@@ -270,13 +271,13 @@ You'll learn more about this in the section :
 
 **Headless**
 
-As you we said earlier, each connection to a the service is forwarded to one randomly selected backing pod. But, what happens if you want to talk with a group of Pods? or what happens if you want to talk directly with a specific pod?  Connecting through the service clearly isn’t the way to do this. 
+As we said earlier, each connection to the service is forwarded to one randomly selected backing pod. But, what happens if you want to talk with a group of Pods? or what happens if you want to talk directly with a specific pod?  Connecting through the service isn’t the way to do this. 
 
   The solution here is to use a **Headless service**. For headless Services, a cluster IP is not allocated, kube-proxy does not handle these Services, and there is no load balancing or proxying done by the platform for them. Instead, Headless allows you to discover pod IPs through DNS lookups.
 
   Usually, when you perform a DNS lookup for a service, the DNS server returns a single IP — the service’s clusterIP. But if you tell Kubernetes you don’t need a cluster IP for your service (you do this by setting the clusterIP field to `None` in the service specification ), the DNS server will return multiple `A` records for the service, each pointing to the IP of an individual pod backing the service at that moment. 
 
-  In these links you'll find two useful videos about services, types of services and networking:
+  In these links you'll find two useful videos about services, types of services, and networking:
     - [Kubernetes Services explained | ClusterIP vs NodePort vs LoadBalancer vs Headless Service](https://www.youtube.com/watch?v=T4Z7visMM4E&ab_channel=TechWorldwithNana)
     - [Pods and Containers - Kubernetes Networking | Container Communication inside the Pod](https://www.youtube.com/watch?v=5cNrTU6o3Fw&ab_channel=TechWorldwithNana)
     - [Kubernetes Services simply visually explained](https://medium.com/swlh/kubernetes-services-simply-visually-explained-2d84e58d70e5)
@@ -288,8 +289,8 @@ As you we said earlier, each connection to a the service is forwarded to one ran
 
 **[Check icons reference](#icons-reference)**
 
-- Individually exposing and managing services is inefficient and not scalable in large kubernetes clusters.
-- That's how **ingress** becomes and the ideal solution.
+- Individually exposing and managing services is inefficient and not scalable in large Kubernetes clusters.
+- That's how **ingress** becomes the ideal solution.
 - Ingress is an API object that provides routing rules to manage access to the services within a k8s cluster.
 - **It acts as the entry point for the whole k8s cluster**, exposing multiple services under a single IP address, with a secure protocol and a domain name. 
 - External request goes first to ingress and it does the forwarding then to the service.
@@ -313,8 +314,8 @@ Learn more about ingress in this tutorial:
 - You define the replicaSet specifications in a `.yml` manifest file with fields.
 - One of the fields is a **selector** that specifies how to identify Pods it can acquire.
 - Another field is the number of replicas, indicating how many Pods it should be maintaining.
-- Finally you have a field where you define a pod template specifying the data of new Pods it should create to meet the number of replicas criteria.
-- In the example below, ReplicaSet has 3 replicas. If for some reason pod-1,pod-2, or pod-3 dies, the replicaSet will make sure to initialise a new pod to maintain the correct and required number of replicas. Whereas if pod-4 were terminated, it would be gone forever.
+- Finally, you have a field where you define a pod template specifying the data of new Pods it should create to meet the number of replicas criteria.
+- In the example below, ReplicaSet has 3 replicas. If for some reason pod-1,pod-2, or pod-3 dies, the replicaSet will make sure to initialize a new pod to maintain the correct and required number of replicas. Whereas if pod-4 were terminated, it would be gone forever.
 
 ```yml
 # example YAML file to create a ReplicaSet object.
@@ -346,11 +347,11 @@ spec: # spec means specification. Atributes of spec are specific to the kind!
 
 - As you know, creating applications will always evolve some updates or changes.
 
-- When we deploy a version of our application, we need a mechanism to update the containerised applications automatically, as doing this manually is an overwhelming process, particularly if you have tens, or many hundreds, of services. 
+- When we deploy a version of our application, we need a mechanism to update the containerized applications automatically, as doing this manually is an overwhelming process, particularly if you have tens, or many hundreds, of services. 
 
 - The [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) is a higher object in the hierarchy, that encapsulates replicaSets and pods. 
 
-- Its [Deployment controller](https://kubernetes.io/docs/concepts/architecture/controller/) gives it the ability to monitor, manage and maintain the desired state of the application we want to deploy.
+- It [Deployment controller](https://kubernetes.io/docs/concepts/architecture/controller/) gives it the ability to monitor, manage and maintain the desired state of the application we want to deploy.
 
 ```yml
 # example YAML file to create a Deployment object.
@@ -388,24 +389,20 @@ More about Namespaces in this video:
 
 ### 3.3.7 - ConfigMap and secret
 
-**[Return to topics list](#table-of-contents)**
-
-**[Check icons reference](#icons-reference)**
-
 - As we said pods communicate with each other using a service 
-- Supose an application with a database endpoint called `mongo-db-service` 
-- For example if you want to update the endpoint of the service from  `mongo-db-service` to `mongo-db` you would do it in inside of the built image of the application. 
+- Suppose an application with a database endpoint called `mongo-db-service` 
+- For example, if you want to update the endpoint of the service from  `mongo-db-service` to `mongo-db` you would do it inside of the built image of the application. 
 - So you'd have to rebuild the application with a new version and you have to push it to the repository (e.g Docker registry) and, then pull that new image in your pod and restart the whole thing. 
 
 <p align="center">
   <img src="./assets/k8s-not-configMap.png" width="60%">
 </p>
 
-- It's little bit tedious for a small change like update the service name.
-- For that purpose kubernetes has an object called ```configMap```
+- It's a little bit tedious for a small change like updating the service name.
+- For that purpose, Kubernetes has an object called ```configMap```
 - It's an API object to store non-confidential data in key-value pairs.
 - It acts as an external configuration to your application, so **Pods can consume configMaps as environment variables, command-line arguments, or as configuration files in volumes**.
-- ConfigMap would usually contain configuration data like urls of a database, database user, etc.
+- ConfigMap would usually contain configuration data like URLs of a database, database user, etc.
 - You just connect it to the pod so that pod gets the data that configMap contains and now if you change for example the endpoint of the service you just adjust the config map and that's it.
 
 
@@ -416,10 +413,10 @@ More about Namespaces in this video:
 
 - Part of the external configuration can also be database username and password.
 - Putting a password or other credentials in a configMap in a plain text format would be insecure. 
-- For this purpose kubernetes has another component called ```secret```.
+- For this purpose, Kubernetes has another component called ```secret```.
 - Secret is just like configMap but the difference is that it's used to store secret data credentials. 
-- Data is stored not in a plain text format but in base 64 encoded format.
-- Like configMap you just add it to your pod so that pod can actually see those data and read from the secret. 
+- Data is stored not in a plain text format, it is in base 64 encoded format.
+- Like configMap you just add it to your pod so that pod can see those data and read from the secret. 
 
 <p align="center">
   <img src="./assets/k8s-secret.png" width="60%">
@@ -446,10 +443,10 @@ The main components of a k8s master node are kube-apiserver, kube-scheduler, kub
 **[Check icons reference](#icons-reference)**
 
 - kube-apiserver is the primary interface to interact with your k8s cluster. 
-- The kube-apiserver is like a cluster gateway which gets the initial request to the cluster. 
-- To interact with the kube-apiserver you can use some client, like the UI kubernetes dashboard, the command line (e.g `kubectl`), or a kubernetes api. 
-- It also acts as a gatekeeper for authentication to make sure that only authenticated and authorized requests get through to the cluster. 
-- So whenever you want to schedule new pods, deploy new applications, create new service or any other components you have to talk to the kube-apiserver on the master node and the kube-apiserver then validate your request and if everything is fine then it will forward your request to other processes.
+- The kube-apiserver is like a cluster gateway that gets the initial request to the cluster. 
+- To interact with the kube-apiserver you can use some client, like the UI Kubernetes dashboard, the command line (e.g `kubectl`), or a Kubernetes API. 
+- It also acts as a gatekeeper for authentication to make sure that only authenticated and authorized requests can get through the cluster. 
+- So whenever you want to schedule new pods, deploy new applications, create new service, or any other components you have to talk to the kube-apiserver on the master node and the kube-apiserver then validates your request, and if everything is fine then it will forward your request to other processes.
 
 <p align="center">
   <img src="./assets/k8s-api-server.png" width="100%">
@@ -461,9 +458,9 @@ The main components of a k8s master node are kube-apiserver, kube-scheduler, kub
 
 **[Check icons reference](#icons-reference)**
 
-- Supose you send a request to the kube-apiserver to start or schedule a new component (let's say a pod).
+- Suppose you send a request to the kube-apiserver to start or schedule a new component (let's say a pod).
 - After the request is validated, it will be sent to the kube-scheduler, which has a logic to decide on which specific worker node the pod should be scheduled.
-- First it will look at your request and see how much resources the pod will need, how much cpu, how much ram, etc.
+- First, it will look at your request and see how many resources the pod will need, how much CPU, how much ram, etc.
 - Then it's going to go through the worker nodes and see the available resources on each one of them and if it sees that one node is the least busy or has the most resources available it will schedule the new pod on that node. 
 - An important point here is that scheduler just decides on which node a new pod will be scheduled, but the process that actually starts that pod is **kubelet**. 
 
@@ -480,7 +477,7 @@ The main components of a k8s master node are kube-apiserver, kube-scheduler, kub
 
 - What happens when a pod or any component dies on a node? There must be a way to detect that and then reschedule those components as soon as possible.
 - Here comes the controller manager in action. It contains multiple logical controllers to track and handle the state of K8s objects.
-- For example when a pod dies, the controller manager detects that and tries to recover the cluster state as soon as possible and for that it makes a request to the scheduler to reschedule those dead pods.
+- For example, when a pod dies, the controller manager detects that and tries to recover the cluster state as soon as possible and for that, it makes a request to the scheduler to reschedule those dead pods.
 - Then the scheduler decides based on the resource calculation which worker nodes should restart those pods again and makes requests to the corresponding kubelet process on those worker nodes to actually restart the pods.
 
 <p align="center">
@@ -493,13 +490,13 @@ The main components of a k8s master node are kube-apiserver, kube-scheduler, kub
 
 **[Check icons reference](#icons-reference)**
 
-- It's a key value store that K8s uses as its data store for the cluster state. 
-- You can think of it as a cluster brain, because every change in the cluster will be saved or updated into this key value store of etcd, and all of the seen mechanism (the scheduler, the controller manager, etc) works because of its data.
-- For example, how does scheduler know what resources are available on on each worker node? or how does the controller manager know that a cluster state changed in some way? All of this information is stored in etcd cluster.
-- What is not stored in the etcd key value store is the actual application data for example if you have a database application running inside of the cluster, the data will be stored somewhere else not in the etcd. 
-- etcd is just a cluster state information which is used for master processes to communicate with their work processes and vice versa.
-- You can see that **master nodes are absolutely crucial for the cluster operation**, especially the etcd store which contains some data that must be reliably stored or replicated. 
-- So in practice kubernetes cluster is usually made up of multiple masters where each master node runs its master processes, where the kube-apiserver is load balanced and the etcd store forms a distributed storage across all the master nodes.
+- It's a key-value store that K8s uses as its data store for the cluster state. 
+- You can think of it as a cluster brain, because every change in the cluster will be saved or updated into this key-value store of etcd, and all of the seen mechanism (the scheduler, the controller manager, etc) works because of its data.
+- For example, how does the scheduler know what resources are available on each worker node? or how does the controller manager know that a cluster state changed in some way? All of this information is stored in etcd cluster.
+- What is not stored in the etcd key-value store is the actual application data for example if you have a database application running inside of the cluster, the data will be stored somewhere else not in the etcd. 
+- etcd is just a cluster state information that is used for master processes to communicate with their work processes and vice versa.
+- You can see that **master nodes are crucial for the cluster operation**, especially the etcd store which contains some data that must be reliably stored or replicated. 
+- So in practice, a Kubernetes cluster is usually made up of multiple masters where each master node runs its master processes, where the kube-apiserver is load balanced and the etcd store forms a distributed storage across all the master nodes.
 
 <p align="center">
   <img src="./assets/k8s-two-master-nodes.png" width="50%">
@@ -519,14 +516,14 @@ The main components of a k8s master node are kube-apiserver, kube-scheduler, kub
 
 **[Check icons reference](#icons-reference)**
 
-- Supose we have a database service in our application, where we save some data.
+- Suppose we have a database service in our application, where we save some data.
 - If the database container or the pod gets restarted the data would be gone.
 - That's problematic and inconvenient because you want your database data to be persisted reliably long term.
-- The way to do this is with another component of kubernetes called ```volumes```
-- It basically attaches a physical storage to your pod and **that storage could be either on a local machine** (meaning on the same server node where the pod is running) or it could be on a **remote storage outside of the kubernetes cluster**, like a cloud storage or some on-premise storage. 
+- The way to do this is with another component of Kubernetes called ```volumes```
+- It basically attaches a physical storage to your pod and **that storage could be either on a local machine** (meaning on the same server node where the pod is running) or it could be on a **remote storage outside of the Kubernetes cluster**, like cloud storage or some on-premise storage. 
 - You just have an external reference on it. 
 - So now when the database pod or container gets restarted all the data will be there persisted.
-- It's important to understand that a ```kubernetes cluster doesn't manage any data persistence```, which means that you are responsible for backing up the data replicating and managing it and making sure that it's kept on a proper hardware.
+- It's important to understand that a ```Kubernetes cluster doesn't manage any data persistence```, which means that you are responsible for backing up the data replicating and managing it, and making sure that it's kept on proper hardware.
 
 
 <p align="center">
@@ -537,9 +534,9 @@ The main components of a k8s master node are kube-apiserver, kube-scheduler, kub
 **[Return to topics list](#table-of-contents)**
 
 - There are 3 main tools to interact with a k8s cluster.
-- You can have a UI like a dashboard, the kubernetes api or a command line tool like `kubectl`.
-- [Kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) is a command line tool for kubernetes cluster. 
-- It's the most powerful of all the three clients because with kubectl you can basically do anything in the kubernetes cluster.
+- You can have a UI like a dashboard, the Kubernetes API, or a command-line tool like `kubectl`.
+- [Kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) is a command-line tool for a Kubernetes cluster. 
+- It's the most powerful of all the three clients because with kubectl you can basically do anything in the Kubernetes cluster.
 - An important thing to note here is that kubectl isn't just for local clusters. If you have a cloud cluster or a hybrid cluster, kubectl is the tool to use to interact with them.
 
 Here, we’ll cover some of the most frequently used commands you’ll need:
@@ -564,9 +561,10 @@ $ kubectl delete <object type> <object name>
 ## 6 - Creating objects: manifest files vs imperative declaration
 **[Return to topics list](#table-of-contents)**
 
+
 - Usually, for creating objects in K8s you can choose between two methods: the declarative one and the imperative one.
 
--  In the declarative method, you have to create a `YAML` file and run `kubectl apply/create/delete -f file.yaml` command to do the job. Here an example of YAML file:
+- In the declarative method, you have to create a `YAML` file and run `kubectl apply/create/delete -f file.yaml` command to do the job. Here is an example of YAML file:
 
 ```yaml
 apiVersion: v1 # version of the k8s object, depend on the project (v1, apps,v1, etc). run kubectl api-versions to see a complete a list.

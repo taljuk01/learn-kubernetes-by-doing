@@ -6,14 +6,14 @@
 
 In this exercise you have to deploy two applications in a k8s cluster:
 
-- Adminer: an user-interface tool for managing content in databases (create, alter, drop, delete, import and export MySQL tables). It natively supports MySQL, MariaDB, PostgreSQL, SQLite, MS SQL, Oracle, Elasticsearch and MongoDB. 
+- Adminer: a user-interface tool for managing content in databases (create, alter, drop, delete, import, and export MySQL tables). It natively supports MySQL, MariaDB, PostgreSQL, SQLite, MS SQL, Oracle, Elasticsearch, and MongoDB. 
 - Postgresql: a free and open-source relational database management system.
 
 The k8s cluster architecture should have:
 
 - 1 postgresql pod
 - 1 adminer pod
-- 1 internal service to talk to the postgresql pod (external request are not allowed!)
+- 1 internal service to talk to the postgresql pod (external requests are not allowed!)
 - 1 variable called `postgres-db` in a `configMap`. This will be the default database to be created.
 - 1 `secret` file to store Authentication variables. For example `postgresql-username` and `postgresql-password`.
 - The `configMap` and the `secret` must be referenced in a `Deployment` YAML file.
