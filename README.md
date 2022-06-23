@@ -233,7 +233,7 @@ You'll learn more about this in the section :
 - A ClusterIP service is the default Kubernetes service. 
 - This service has a cluster-internal IP address, **which is only reachable from within the cluster**. 
 - External traffic cannot hit a service of type ClusterIP directly
-- To allow external traffic, you need to configure another Kubernetes resource called **ingress** (you'll learn more about ingress in the next section).}
+- To allow external traffic, you need to configure another Kubernetes resource called **ingress** (you'll learn more about ingress in the next section).
 - Also you can interact with this type of service by using the command line with kube-proxy (this requires being authenticated into the cluster infrastructure).
 - This type of service is useful for testing purposes (using the command line), or for private applications we don't want to expose to the internet.
 
