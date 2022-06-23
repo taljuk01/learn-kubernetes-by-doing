@@ -78,7 +78,7 @@ You can come back here whenever you need an icon reference.
 
 Kubernetes becomes very useful when you're working with microservices.
 
-Just to remember, microservices are an application architecture that breaks an application into various small independent services that communicate with each other over well-defined APIs, unlike traditional monolithic architecture, where all processes are tightly coupled and run as a single service.
+Just to remember, a microservices architecture is an architecture that breaks an application into various small independent services that communicate with each other over well-defined APIs, unlike traditional monolithic architecture, where all processes are tightly coupled and run as a single service.
 
 <p align="center">
   <img src="./assets/monolithic-vs-microservices.png" width="60%">
