@@ -20,10 +20,10 @@ All the charts of this tutorial (except the chart from section 3.1) were created
     <img src="./assets/muttlogo.jpeg" width="48px"></img>
   </a>
   <a href=https://ar.linkedin.com/company/mutt-data>
-    <img src="./assets/linkedin.png" width="42px"></img>
+    <img src="./assets/linkedin.png" width="48px"></img>
   </a>
   <a href=https://www.youtube.com/channel/UCzQyAiNmw4os0sTB0v5D4WA>
-    <img src="./assets/youtube.gif" width="42px"></img>
+    <img src="./assets/youtube.png" width="48px"></img>
   </a>
   <a href=https://www.instagram.com/mutt.data>
     <img src="./assets/instagram.png" width="48px"></img>
