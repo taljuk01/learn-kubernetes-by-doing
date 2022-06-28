@@ -10,9 +10,9 @@ I'll provide you with this minimum needed theory, but also on each exercise I'll
 
 All the charts of this tutorial (except the chart from section 3.1) were created using draw.io
 
-> This guide was created during the onboarding process at [Muttdata.ai](https://muttdata.ai/), an Argentinian startup focused on building modern data solutions with Cloud Computing, Machine Learning, Software engineering, and more.
+> This guide was created during the onboarding process at [Muttdata.ai](https://muttdata.ai/), an Argentinian startup focused on building modern data solutions.
 >
->Thanks for always promoting self-learning and [knowledge sharing](https://muttdata.ai/blog/).
+> Thanks for promoting self-learning and [knowledge sharing](https://muttdata.ai/blog/).
 
 
 <p align="center">
