@@ -1,9 +1,5 @@
 # Learn kubernetes by doing
 
-<p align="center">
-  <img src="./assets/k8s-logo.png" width="10%">
-</p>
-
 Learning by doing is the simple idea that we are capable of learning more about something when we perform the action.
 
 So this guide aims to help you start in the Kubernetes world by doing hands-on exercises.
@@ -13,6 +9,27 @@ There is a minimal needed theory that you have to learn before starting the exer
 I'll provide you with this minimum needed theory, but also on each exercise I'll put helpers links in case you want to deepen your knowledge or better understand how things work.
 
 All the charts of this tutorial (except the chart from section 3.1) were created using draw.io
+
+> This guide was created during the onboarding process at [Muttdata.ai](https://muttdata.ai/), an Argentinian startup focused on building modern data solutions with Cloud Computing, Machine Learning, Software engineering, and more.
+>
+>Thanks for always promoting self-learning and [knowledge sharing](https://muttdata.ai/blog/).
+
+
+<p align="center">
+   <a href=https://muttdata.ai>
+    <img src="./assets/muttlogo.jpeg" width="48px"></img>
+  </a>
+  <a href=https://ar.linkedin.com/company/mutt-data>
+    <img src="./assets/linkedin.png" width="42px"></img>
+  </a>
+  <a href=https://www.youtube.com/channel/UCzQyAiNmw4os0sTB0v5D4WA>
+    <img src="./assets/youtube.gif" width="42px"></img>
+  </a>
+  <a href=https://www.instagram.com/mutt.data>
+    <img src="./assets/instagram.png" width="48px"></img>
+  </a>
+</p>
+  
 
 
 ## [Table of contents](#table-of-contents)
@@ -232,7 +249,7 @@ You'll learn more about this in the section :
 
 - A ClusterIP service is the default Kubernetes service. 
 - This service has a cluster-internal IP address, **which is only reachable from within the cluster**. 
-- External traffic cannot hit a service of type ClusterIP directly
+- External traffic cannot hit a service of type ClusterIP directly.
 - To allow external traffic, you need to configure another Kubernetes resource called **ingress** (you'll learn more about ingress in the next section).
 - Also you can interact with this type of service by using the command line with kube-proxy (this requires being authenticated into the cluster infrastructure).
 - This type of service is useful for testing purposes (using the command line), or for private applications we don't want to expose to the internet.
